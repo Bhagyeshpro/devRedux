@@ -4,70 +4,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createStore } from "redux";
+import rootReducers from "./reducers";
+import { Provider } from "react-redux";
 
-//Store
-
-//Action
-const increment = () => {
-  return {
-    type: "INCREMENT",
-  };
-};
-
-const decrement = () => {
-  return {
-    type: "DECREMENT",
-  };
-};
-
-//Reducer
-const counter = (state = 0, action) => {
-  switch (action.type) {
-    case "INCREMENT":
-      return state + 1;
-    case "DECREMENT":
-      return state - 1;
-  }
-};
-let store = createStore(counter);
-
-// Display it to console
-store.subscribe(() => console.log(store.getState()));
-
-//Dispatch
-store.dispatch(decrement());
-
-//Store
-//Action
-// const addBook = () => {
-//   return {
-//     type: "ADDBOOK",
-//   };
-// };
-
-// const removeBook = () => {
-//   return {
-//     type: "REMOVEBOOK",
-//   };
-// };
-// //Reducer
-// const novels = (state = 10, action) => {
-//   switch (action.type) {
-//     case "ADDBOOK":
-//       return state + 1;
-
-//     case "REMOVEBOOK":
-//       return state - 1;
-//   }
-// };
-// let store = createStore(novels);
-
-// //Dispatch
-// store.dispatch(addBook());
+const store = createStore(
+  rootReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
